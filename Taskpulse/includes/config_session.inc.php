@@ -12,27 +12,52 @@ session_set_cookie_params([
 ]);
 
 session_start();
+if(isset($_SESSION["userId"])){
+    if (!isset($_SESSION["last_generation"])){
 
-if (!isset($_SESSION["last_generation"])){
+        regenerateSessionId();
+    
+        }
+        else{
+    
+        $interval = 60*30;
+        if(time() - $_SESSION["last_generation"]>=$interval){
+        regenerateSessionId();
+       }
+    
+       }
+
+}  else{
+
+    if (!isset($_SESSION["last_generation"])){
 
     regenerateSessionId();
 
-}
-else{
+    }
+    else{
 
-$interval = 60*30;
-if(time() - $_SESSION["last_generation"]>=$interval){
+    $interval = 60*30;
+    if(time() - $_SESSION["last_generation"]>=$interval){
     regenerateSessionId();
- }
+   }
 
+   }
 }
+function regenerateSessionIdLoggedIn(){
+    session_regenerate_id(true);
+    
+    $userId = $_SESSION["userId"];  
+    $newSessionId = session_create_id();
+    $sessionID = $newSessionId ."-". $userId;
+    session_id($sessionID);
 
-function regenerateSessionId(){
-    session_regenerate_id();
     $_SESSION["last_regeneration"] = time();
 }
 
-
+function regenerateSessionId(){
+    session_regenerate_id(true);
+    $_SESSION["last_regeneration"] = time();
+}
 
 
 
