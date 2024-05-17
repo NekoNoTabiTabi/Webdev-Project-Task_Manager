@@ -2,9 +2,10 @@
 
 if($_SERVER["REQUEST_METHOD"] === "POST"){
 
-
-
-
+    $username = $_POST["username"];  
+    $pwd = $_POST["pwd"];
+    $email = $_POST["email"];
+    
 
 try{
 
@@ -12,9 +13,6 @@ require_once 'database.inc.php';
 require_once 'signup_model.inc.php';
 require_once 'signup_control.inc.php';
 
-$username = $_POST["username"];  
-$pwd = $_POST["pwd"];
-$email = $_POST["email"];
 
 //error Handdlers
 
@@ -38,6 +36,16 @@ require_once 'config_session.inc.php';
 if($errors){
 
     $_SESSION["errorSignup"] = $errors;
+
+    $signupData = [
+       
+        "username"=> $username,
+        "email"=> $email,        
+
+    ];
+
+    $_SESSION["dataSignup"] = $errors;
+
     header("Location:../index.php");
     die();
 }
