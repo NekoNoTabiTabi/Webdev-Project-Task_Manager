@@ -27,7 +27,7 @@ $saveTasks = getTasks($pdo);
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <title>TaskPulse</title>
-
+    <link rel="icon" type="image/x-icon" href="images/Logo final.png">
 </head>
 
 <body>
